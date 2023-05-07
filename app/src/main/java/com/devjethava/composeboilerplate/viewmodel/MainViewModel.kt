@@ -9,6 +9,7 @@ import com.devjethava.composeboilerplate.network.repository.RestApiRepository
 import com.devjethava.composeboilerplate.network.response.Response
 import com.devjethava.composeboilerplate.network.response.UserData
 import com.devjethava.composeboilerplate.ui.state.UserState
+import com.devjethava.composeboilerplate.utils.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -28,6 +29,9 @@ class MainViewModel @Inject constructor(
 
     fun getUserFromApi() {
         viewModelScope.launch(Dispatchers.IO) {
+            _userResponse.update {
+                UserState(userResponse = null, isLoading = false, error = "")
+            }
             restApiRepository.getUser().collectLatest { res ->
                 when (res) {
                     is Response.Loading -> _userResponse.update {
@@ -64,18 +68,19 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun addUserToDatabase(userdata: UserData) {
+    fun addUserToDatabase(userdata: UserData): UserEntity {
         val userEntity = UserEntity()
         userEntity.email = userdata.email ?: ""
         userEntity.gender = userdata.gender ?: ""
         userEntity.name =
-            (userdata.name?.title + userdata.name?.first + userdata.name?.last) + ""
+            (userdata.name?.title + " " + userdata.name?.first + " " + userdata.name?.last) + ""
         userEntity.phoneNumber = userdata.phone ?: ""
         userEntity.dob = userdata.dob?.date ?: ""
-        userEntity.imageURL = userdata.picture?.thumbnail ?: ""
+        userEntity.imageURL = userdata.picture?.large ?: Constants.PLACEHOLDER_IMAGE_URL
 
         viewModelScope.launch(Dispatchers.IO) {
             database.userDao.insertUser(userEntity)
         }
+        return userEntity
     }
 }

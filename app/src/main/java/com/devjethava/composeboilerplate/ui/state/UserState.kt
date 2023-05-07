@@ -4,6 +4,6 @@ import com.devjethava.composeboilerplate.network.response.UserResponse
 
 data class UserState(
     val userResponse: UserResponse? = null,
-    val isLoading: Boolean = true,
+    val isLoading: Boolean = false,
     val error: String = ""
 )

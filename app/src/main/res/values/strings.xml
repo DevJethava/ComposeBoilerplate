@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">Compose Boilerplate</string>
+    <string name="app_name">Random User Generator</string>
+    <string name="lbl_name">Name</string>
+    <string name="lbl_email">Email</string>
+    <string name="lbl_gender">Gender</string>
+    <string name="lbl_phone_number">Phone Number</string>
+    <string name="lbl_dob">Date Of Birth</string>
 </resources>
