@@ -1,4 +1,4 @@
-# ComposeBoilerplate
+# Compose Boilerplate
 # Used Tech
 * Anadroid Jetpack Compose
 * Kotlin Coroutines
