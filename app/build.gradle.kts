@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp.android)
+    alias(libs.plugins.hilt.android)
 }
 
 android {
@@ -74,6 +75,7 @@ dependencies {
     // Dagger - Hilt DI
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
+    implementation(libs.androidx.hilt.navigation.compose)
 
     // For instrumentation tests
     androidTestImplementation(libs.hilt.android.testing)
